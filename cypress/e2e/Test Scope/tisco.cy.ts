@@ -1,3 +1,4 @@
+import { type } from "cypress/types/jquery"
 import { Tisco } from "../Page_model/tisco_page"
 
 const tisco = new Tisco()
@@ -35,5 +36,41 @@ describe('Tisco Interview', () => {
 
         //click accept policy
         tisco.click_accept_policy()
+    })
+
+    //ACT
+    it('เลือกความคุ้มครอง',() =>{
+        //choose coverage
+        tisco.enter_choose_coverage()
+
+        //click search insurance
+        tisco.click_search_insurance_button()
+    })
+
+    //ACT
+    it('กรอกข้อมูล',() =>{
+        //fill out personal information
+        tisco.fill_out_personal_information()
+
+        //click next step
+        tisco.click_next_step_personal()
+    })
+   
+    //ACT
+    it('รายละเอียดการขอเอาประกันภัย',() =>{
+         //insurance_claim_details
+         tisco.insurance_claim_details()
+
+         //click next step
+         tisco.click_next_step_claim()
+    })
+
+    //ACT
+    it('ตรวจสอบข้อมูล',() =>{
+        //Assert
+        tisco.validate_information()
+
+        //click next step
+        tisco.click_next_step_validate()
     })
 })
