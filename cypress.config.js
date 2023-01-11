@@ -1,6 +1,10 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  
+  //mochawesome reporter
+  reporter: 'cypress-mochawesome-reporter',
+
   e2e: {
     testIsolation: false,
     watchForFileChanges: false,
@@ -8,6 +12,8 @@ module.exports = defineConfig({
     
     setupNodeEvents(on, config) {
       // implement node event listeners here
+
+      require('cypress-mochawesome-reporter/plugin')(on);
     },
   },
 });
