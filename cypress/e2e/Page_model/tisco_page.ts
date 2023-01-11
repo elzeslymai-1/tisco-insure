@@ -51,8 +51,8 @@ export class Tisco {
             for (var i = 0; i < product_length; i++) {
                 var product_title = data.find('.uk-card > .uk-card-body > a > h3').eq(i).text()
                 if (product_title == message) {
-                    console.log(i+1)
-                    cy.get(buy_online_insurance).eq((i*2)+1).should('have.text', ' ซื้อประกันออนไลน์ ').click()
+                    console.log(i + 1)
+                    cy.get(buy_online_insurance).eq((i * 2) + 1).should('have.text', ' ซื้อประกันออนไลน์ ').click()
                 }
             }
         })
@@ -62,26 +62,26 @@ export class Tisco {
         })
     }
 
-    click_accept_policy(){
+    click_accept_policy() {
         cy.get(accecp_policy).click()
     }
 
-    click_search_insurance_button(){
+    click_search_insurance_button() {
         cy.get(search_insurance_button).click()
     }
 
-    click_next_step_personal(){
+    click_next_step_personal() {
         cy.get(next_step_personal).click()
     }
 
-    click_next_step_claim(){
+    click_next_step_claim() {
         cy.get(next_step_claim).click()
     }
 
-    click_next_step_validate(){
+    click_next_step_validate() {
         cy.get(next_step_validate).click()
     }
-    enter_choose_coverage(){
+    enter_choose_coverage() {
         cy.get('.uk-grid-small').contains('ตนเอง').click()
         cy.get('.uk-margin-small-bottom > .uk-form-controls').contains('ชาย').click()
         cy.get('select[id="date"]').select('17')
@@ -94,18 +94,18 @@ export class Tisco {
         cy.get('.uk-form-controls>#promotion-code').clear()
     }
 
-    fill_out_personal_information(){
-        cy.get('select[name="titleName"]').select('นาย')
-        cy.get('#first-name').type('ชนทัช')
-        cy.get('#last-name').type('สังข์ทองจีน')
-        cy.get('#user-height').type('174')
-        cy.get('#user-weight').type('90')
-        cy.get('.uk-margin-small-bottom.ng-star-inserted > .uk-first-column > .uk-form-controls > .uk-input').type(Cypress.env('id_card'))
-        cy.get(':nth-child(8) > .uk-form-controls').contains('โสด').click()
-        cy.get('#tel').type(Cypress.env('tel'))
-        cy.get('#mail-leads').type(Cypress.env('email'))
-        cy.get('select[id=occupation]').select('วิศวกร')
-        cy.get('select[id="job-desc"]').select('อยู่ออฟฟิตประจำ')
+    fill_out_personal_information(title: string, fname: string, lname: string, height: string, weight: string, id_card: string, status: string, tel: string, email: string, occupation: string, job_desc: string) {
+        cy.get('select[name="titleName"]').select(title)
+        cy.get('#first-name').type(fname)
+        cy.get('#last-name').type(lname)
+        cy.get('#user-height').type(height)
+        cy.get('#user-weight').type(weight)
+        cy.get('input[name="idCard"]').type(id_card)
+        cy.get(':nth-child(8) > .uk-form-controls').contains(status).click()
+        cy.get('#tel').type(tel)
+        cy.get('#mail-leads').type(email)
+        cy.get('select[id=occupation]').select(occupation)
+        cy.get('select[id="job-desc"]').select(job_desc)
         cy.get(':nth-child(1) > .uk-list > :nth-child(1) > .uk-position-relative > .uk-radio').click()
         cy.get(':nth-child(2) > .uk-list > :nth-child(1) > .uk-position-relative > .uk-radio').click()
         cy.get(':nth-child(3) > .uk-list > :nth-child(4) > .uk-position-relative > .uk-radio').click()
@@ -114,29 +114,29 @@ export class Tisco {
         cy.get(':nth-child(6) > .uk-list > :nth-child(1) > .uk-position-relative > .uk-radio').click()
     }
 
-    insurance_claim_details(){
-        cy.get('#currentNumber').type('371')
-        cy.get(':nth-child(2) > .ng-autocomplete > .autocomplete-container > .input-container > .ng-untouched').type('บ่อยาง')
-        cy.get(':nth-child(3) > .ng-autocomplete > .autocomplete-container > .input-container > .ng-untouched').type('หาดใหญ่')
-        cy.get(':nth-child(3) > div.ng-star-inserted > .ng-star-inserted').click()
+    insurance_claim_details(no: string, sub_district: string, district: string, suggestions: string) {
+        cy.get('#currentNumber').type(no)
+        cy.get(':nth-child(2) > .ng-autocomplete > .autocomplete-container > .input-container > .ng-untouched').type(sub_district)
+        cy.get(':nth-child(3) > .ng-autocomplete > .autocomplete-container > .input-container > .ng-untouched').type(district)
+        cy.get('#suggestions > ul').contains(suggestions).click()
         cy.get(':nth-child(3) > .uk-form-controls > .uk-list > :nth-child(1) > .uk-position-relative > .uk-radio').click()
         cy.get(':nth-child(4) > .uk-form-controls > .uk-list > :nth-child(1) > .uk-position-relative > .uk-radio').click()
         cy.get(':nth-child(5) > .uk-form-controls > .uk-list > [uk-margin=""] > .uk-position-relative > .uk-radio').click()
     }
 
-    validate_information(){
-        cy.get('.step-three > .uk-section > :nth-child(1) > .uk-flex > :nth-child(1) > .uk-margin-medium-bottom > .uk-background-default').should('contain',' 8,400 บาท')
-        cy.get(':nth-child(4) > .uk-background-default > :nth-child(1)').should('contain','นาย ชนทัช สังข์ทองจีน')
-        cy.get(':nth-child(4) > .uk-background-default > :nth-child(3)').should('contain','ชาย')
-        cy.get(':nth-child(4) > .uk-background-default > :nth-child(5)').should('contain','17 มิถุนายน 2531')
-        cy.get(':nth-child(4) > .uk-background-default > :nth-child(7)').should('contain','90 กิโลกรัม')
-        cy.get(':nth-child(4) > .uk-background-default > :nth-child(9)').should('contain','174 เซนติเมตร')
-        cy.get('.uk-background-default > :nth-child(11)').should('contain','THAI')
-        cy.get(':nth-child(4) > .uk-background-default > .uk-grid-small.ng-star-inserted').should('contain',Cypress.env('id_card'))
-        cy.get(':nth-child(5) > .uk-background-default > :nth-child(9)').should('contain',Cypress.env('email'))
-        cy.get(':nth-child(6) > .uk-background-default > :nth-child(1)').should('contain','วิศวกร')
-        cy.get('.uk-list > .ng-star-inserted > .uk-padding-small > .uk-grid-small').should('contain','ทายาทตามกฎหมาย')
+    validate_information(price: string, name: string, sex: string, birth: string, weight: string, height: string, nationality: string, id_card: string, email: string, occupation: string, legal_heir: string) {
+        cy.get('.step-three > .uk-section > :nth-child(1) > .uk-flex > :nth-child(1) > .uk-margin-medium-bottom > .uk-background-default').should('contain', price)
+        cy.get(':nth-child(4) > .uk-background-default > :nth-child(1)').should('contain', name)
+        cy.get(':nth-child(4) > .uk-background-default > :nth-child(3)').should('contain', sex)
+        cy.get(':nth-child(4) > .uk-background-default > :nth-child(5)').should('contain', birth)
+        cy.get(':nth-child(4) > .uk-background-default > :nth-child(7)').should('contain', weight)
+        cy.get(':nth-child(4) > .uk-background-default > :nth-child(9)').should('contain', height)
+        cy.get('.uk-background-default > :nth-child(11)').should('contain', nationality)
+        cy.get('.uk-background-default > :nth-child(13)').should('contain', id_card)
+        cy.get(':nth-child(5) > .uk-background-default > :nth-child(9)').should('contain', email)
+        cy.get(':nth-child(6) > .uk-background-default > :nth-child(1)').should('contain', occupation)
+        cy.get('li > .uk-padding-small > .uk-grid-small').should('contain', legal_heir)
     }
-    
-        
+
+
 }
