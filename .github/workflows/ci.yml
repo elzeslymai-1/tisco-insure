@@ -12,7 +12,8 @@ jobs:
           browser: chrome
 
 name: Artifacts
-on: [push]jobs:
+on: [push]
+jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     name: Artifacts
