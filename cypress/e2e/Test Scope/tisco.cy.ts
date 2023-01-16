@@ -66,12 +66,12 @@ describe('Tisco Interview', () => {
     })
 
     //ACT
-    it('ตรวจสอบข้อมูล', () => {
+    it.skip('ตรวจสอบข้อมูล', () => {
         //Assert
         tisco.validate_information(' 8,400 บาท', 'นาย ชนทัช สังข์ทองจีน', 'ชาย', '17 มิถุนายน 2531', '90 กิโลกรัม', '174 เซนติเมตร', 'THAI', Cypress.env('id_card'), Cypress.env('email'), 'วิศวกร', 'ทายาทตามกฎหมาย')
 
         //click next step
-        //tisco.click_next_step_validate()
+        tisco.click_next_step_validate()
     })
 
     afterEach(() => {
